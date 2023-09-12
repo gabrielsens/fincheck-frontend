@@ -5,6 +5,9 @@ import Accounts from "./components/Accounts";
 import { UserMenu } from "../../components/UserMenu";
 import Transactions from "./components/Transactions";
 import { DashboardProvider } from "./components/DashboardContext";
+import { Fab } from "./components/Fab";
+import { NewAccountModal } from "./modals/NewAccountModal";
+import { NewTransactionModal } from "./modals/NewTransactionModal";
 
 export function Dashboard() {
 
@@ -15,6 +18,7 @@ export function Dashboard() {
           <Logo className="h-6 text-teal-900" />
           <UserMenu />
         </header>
+
         <main className="flex-1 flex flex-col md:flex-row gap-4 max-h-full">
           <div className="w-full md:w-1/2">
             <Accounts />
@@ -23,6 +27,12 @@ export function Dashboard() {
             <Transactions />
           </div>
         </main>
+
+        <Fab />
+
+        <NewAccountModal />
+
+        <NewTransactionModal />
       </div>
     </DashboardProvider>
   )
