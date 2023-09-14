@@ -18,7 +18,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function useNewAccountModalController() {
-  const { isNewAccountModalOpen, closeNewAccountModal } = useDashboard();
+  const { isEditAccountModalOpen, closeEditAccountModal, accountBeingEdit } = useDashboard();
 
   const {
     register,
@@ -43,23 +43,24 @@ export function useNewAccountModalController() {
         initialBalance: initialBalanceNumber
       });
 
-      toast.success('Conta cadastrada com sucesso!');
+      toast.success('Conta editada com sucesso!');
       queryClient.invalidateQueries({ queryKey: ['bank-account', 'all'] })
       reset();
-      closeNewAccountModal();
+      closeEditAccountModal();
     } catch {
-      toast.error('Ocorreu um erro ao cadastrar a conta!');
+      toast.error('Ocorreu um erro ao editar a conta!');
     }
   });
 
 
   return {
-    isNewAccountModalOpen,
-    closeNewAccountModal,
+    isEditAccountModalOpen,
+    closeEditAccountModal,
     register,
     errors,
     handleSubmit,
     control,
-    isLoading
+    isLoading,
+    accountBeingEdit
   }
 }
