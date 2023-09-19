@@ -5,7 +5,8 @@ import { Input } from "../../../../components/Input";
 import { InputCurrency } from "../../../../components/InputCurrency";
 import { Modal } from "../../../../components/Modal";
 import { Select } from "../../../../components/Select";
-import { useNewAccountModalController } from "./useNewAccountModalController";
+import { useEditAccountModalController } from "./useEditAccountModalController";
+import { TrashIcon } from "@radix-ui/react-icons";
 
 export function EditAccountModal() {
   const {
@@ -16,12 +17,17 @@ export function EditAccountModal() {
     handleSubmit,
     control,
     isLoading
-  } = useNewAccountModalController();
+  } = useEditAccountModalController();
   return (
     <Modal
       title="Editar conta"
       open={isEditAccountModalOpen}
       onClose={closeEditAccountModal}
+      rightAction={(
+        <button type="button">
+          <TrashIcon className="text-red-900 w-6 h-6"/>
+        </button>
+      )}
     >
       <form onSubmit={handleSubmit}>
         <div>
@@ -95,7 +101,7 @@ export function EditAccountModal() {
 
         </div>
         <Button type="submit" className="w-full mt-6" isLoading={isLoading}>
-          Criar
+          Editar
         </Button>
       </form>
     </Modal>
