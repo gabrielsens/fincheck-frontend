@@ -7,6 +7,7 @@ import { Modal } from "../../../../components/Modal";
 import { Select } from "../../../../components/Select";
 import { useEditAccountModalController } from "./useEditAccountModalController";
 import { TrashIcon } from "@radix-ui/react-icons";
+import { ConfirmDeleteModal } from "../../../../components/ConfirmDeleteModal";
 
 export function EditAccountModal() {
   const {
@@ -16,19 +17,37 @@ export function EditAccountModal() {
     errors,
     handleSubmit,
     control,
-    isLoading
+    isLoading,
+    isDeleteModalOpen,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteAccount,
+    isLoadingDeleteAccount
   } = useEditAccountModalController();
+
+  if (isDeleteModalOpen) return (
+    <ConfirmDeleteModal
+      open
+      title="Tem certeza que deseja excluir esta conta?"
+      description="Ao excluir a conta, também serão excluidos todos os registros de receita e despesas relacionados."
+      onConfirm={handleDeleteAccount}
+      onClose={handleCloseDeleteModal}
+      isLoadingConfirm={isLoadingDeleteAccount}
+    />
+  )
+
   return (
     <Modal
       title="Editar conta"
       open={isEditAccountModalOpen}
       onClose={closeEditAccountModal}
       rightAction={(
-        <button type="button">
+        <button type="button" onClick={handleOpenDeleteModal}>
           <TrashIcon className="text-red-900 w-6 h-6"/>
         </button>
       )}
     >
+
       <form onSubmit={handleSubmit}>
         <div>
           <span className="text-gray-600 tracking-[-0.5px] text-xs">
