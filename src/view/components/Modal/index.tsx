@@ -14,7 +14,6 @@ interface ModalProps {
 export function Modal({ open, title, rightAction, children, onClose }: ModalProps) {
   return (
     <RdxDialog.Root open={open} onOpenChange={onClose}>
-      <RdxDialog.Trigger />
       <RdxDialog.Portal>
         <RdxDialog.Overlay className={
           cn(

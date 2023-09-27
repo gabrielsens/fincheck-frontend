@@ -4,28 +4,40 @@ import { DropdownMenu } from "../../../../../components/DropdownMenu";
 import { IncomeIcon } from "../../../../../components/icons/IncomeIcon";
 import { ExpensesIcon } from "../../../../../components/icons/ExpensesIcon";
 
-export function TransactionTypeDropdown() {
+interface TransactionTypeDropdownProps {
+  selectedType: "INCOME" | "EXPENSE" | undefined
+  onSelect(type: "INCOME" | "EXPENSE" | undefined): void;
+}
+
+export function TransactionTypeDropdown({
+  selectedType,
+  onSelect,
+}: TransactionTypeDropdownProps) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button className="flex items-center gap-2">
-          <TransactionsIcon />
+          {selectedType === 'EXPENSE' && (<ExpensesIcon />)}
+          {selectedType === 'INCOME' && (<IncomeIcon />)}
+          {selectedType === undefined && (<TransactionsIcon />)}
           <span className="text-sm text-gray-800 tracking-[-0.5px] font-medium">
-            Transações
+            {selectedType === 'EXPENSE' && "Despesas"}
+            {selectedType === 'INCOME' && "Receitas"}
+            {selectedType === undefined && "Transações"}
           </span>
           <ChevronDownIcon className="text-gray-900" />
         </button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content className="w-[279px]">
-        <DropdownMenu.Item className="gap-2">
+        <DropdownMenu.Item className="gap-2" onSelect={() => onSelect('INCOME')}>
           <IncomeIcon />
           Receitas
         </DropdownMenu.Item>
-        <DropdownMenu.Item className="gap-2">
+        <DropdownMenu.Item className="gap-2" onSelect={() => onSelect('EXPENSE')}>
           <ExpensesIcon />
           Despesas
         </DropdownMenu.Item>
-        <DropdownMenu.Item className="gap-2">
+        <DropdownMenu.Item className="gap-2" onSelect={() => onSelect(undefined)}>
           <TransactionsIcon />
           Transações
         </DropdownMenu.Item>
